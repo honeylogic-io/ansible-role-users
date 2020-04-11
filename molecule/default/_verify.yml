@@ -1,3 +1,4 @@
+---
 - name: Assert that the user is created
   shell: 'id -u {{ item.name }}'
 
@@ -31,3 +32,8 @@
   assert:
     that:
       - 'user_shell.stdout == "/bin/zsh"'
+
+- name: Assert that the users shell is installed
+  shell: echo hello
+  args:
+    executable: '/bin/zsh'
