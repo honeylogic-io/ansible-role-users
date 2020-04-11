@@ -1,0 +1,4 @@
+---
+user_shell: /bin/zsh
+user_groups: [sudo, docker]
+user_passwordless_sudo: true

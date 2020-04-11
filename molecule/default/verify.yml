@@ -1,0 +1,8 @@
+---
+- name: Verify
+  hosts: all
+  tasks:
+    - include_tasks: _verify.yml
+      loop:
+        - name: dani
+          ssh_public_key: ssh-rsa AAAA

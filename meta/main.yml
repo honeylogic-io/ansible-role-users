@@ -1,0 +1,17 @@
+galaxy_info:
+  author: Dani Hodovic
+  description: An opinionated role to manage unix users
+  company: Depode LTD
+  license: MIT
+  min_ansible_version: 2.4
+  platforms:
+    - name: Ubuntu
+      versions:
+        - xenial
+        - bionic
+    - name: Debian
+      versions:
+        - stretch
+        - buster
+  galaxy_tags: [users, unix, linux]
+dependencies: []

@@ -1,0 +1,24 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: Include ansible-role-users
+      include_role:
+        name: ansible-role-users
+      vars:
+        users:
+          - name: dani
+            ssh_public_key: ssh-rsa AAAA
+
+
+    # TODO: Test multiple users
+    # TODO: Test overriding defaults
+    #
+    #
+# creates user x
+# adds to sudoers
+# adds private key
+# adds nopasswd
+# sets shell, default zsh
+# remove users
+# adds user to group

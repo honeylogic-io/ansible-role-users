@@ -1,0 +1,8 @@
+---
+- name: Install dependencies
+  apt:
+    name: sudo
+
+- name: Create users
+  include_tasks: add_user.yml
+  loop: '{{ users }}'

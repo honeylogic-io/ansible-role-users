@@ -1,0 +1,33 @@
+- name: Assert that the user is created
+  shell: 'id -u {{ item.name }}'
+
+- name: Get users groups
+  shell: 'groups {{ item.name }}'
+  register: user_groups
+
+- name: Assert that the user is added to the groups
+  assert:
+    that:
+      - 'user_groups.stdout == "{{ item.name }} : {{ item.name }} sudo docker"'
+
+- name: Test that the user is added to sudoers & NOPASSWD is set
+  lineinfile:
+    path: /etc/sudoers
+    line: '{{ item.name }} ALL=(ALL) NOPASSWD:ALL'
+
+- name: Test that user has sudo
+  shell: 'sudo -l -U {{ item.name }}'
+
+- name: Test that the public ssh key is added
+  lineinfile:
+    path: '/home/{{ item.name }}/.ssh/authorized_keys'
+    line: '{{ item.ssh_public_key }}'
+
+- name: Read user shell
+  register: user_shell
+  shell: 'getent passwd {{ item.name }} | cut -d: -f7'
+
+- name: Assert that the shell is set
+  assert:
+    that:
+      - 'user_shell.stdout == "/bin/zsh"'

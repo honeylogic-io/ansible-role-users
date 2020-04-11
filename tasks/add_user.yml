@@ -1,0 +1,26 @@
+---
+- name: Create user groups
+  group:
+    name: '{{ item }}'
+    state: present
+  loop: '{{ item.groups | default(user_groups) }}'
+
+- name: Create user
+  become: true
+  user:
+    name: '{{ item.name }}'
+    shell: '{{ item.shell | default(user_shell) }}'
+    groups: '{{ item.groups | default(user_groups) }}'
+
+- name: Set passwordless sudo for user
+  when: '{{ item.passwordless_sudo | default(user_passwordless_sudo) }}'
+  become: true
+  lineinfile:
+    path: /etc/sudoers
+    line: '{{ item.name }} ALL=(ALL) NOPASSWD:ALL'
+
+- name: Add public ssh key
+  become: true
+  authorized_key:
+    user: '{{ item.name }}'
+    key: '{{ item.ssh_public_key }}'
