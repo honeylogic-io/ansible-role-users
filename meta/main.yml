@@ -1,4 +1,5 @@
 galaxy_info:
+  role_name: honeylogic.users
   author: Dani Hodovic
   description: An opinionated role to manage unix users
   company: Depode LTD
