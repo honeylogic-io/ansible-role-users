@@ -23,7 +23,7 @@
     groups: '{{ unix_groups }}'
 
 - name: Set passwordless sudo for user
-  when: '{{ passwordless_sudo }}'
+  when: passwordless_sudo
   become: true
   lineinfile:
     path: /etc/sudoers
